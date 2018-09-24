@@ -4,6 +4,13 @@ import '../css/Table.css';
 class Table extends Component {
   constructor(props) {
     super(props);
+
+    this.favoriteAction = this.favoriteAction.bind(this);
+  }
+
+
+  favoriteAction(repo){
+    this.props.favoritesAction(repo);
   }
 
   render() {
@@ -17,8 +24,8 @@ class Table extends Component {
             <tr key={i}>
               <td data-label="Name">{repos[i].full_name}</td>
               <td data-label="Language">{repos[i].language}</td>
-              <td data-label="Latest tag">{repos[i].tags_url}</td>
-              <td data-label="Period">Add</td>
+              <td data-label="Latest tag">{repos[i].tag || "-"}</td>
+              <td data-label="Period"><span className="actionLink" OnClick={this.favoriteAction(repos[i])}>{this.props.action}}</span></td>
             </tr>
         );
       }

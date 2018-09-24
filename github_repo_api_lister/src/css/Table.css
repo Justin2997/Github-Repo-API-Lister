@@ -64,3 +64,9 @@ table {
       border-bottom: 0;
     }
   }
+
+  .actionLink
+  {
+    text-decoration: overline;
+    color: rgb(134, 0, 244);
+  }

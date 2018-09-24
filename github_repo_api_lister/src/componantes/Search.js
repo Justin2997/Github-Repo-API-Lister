@@ -8,10 +8,10 @@ class Search extends Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeFavorite = this.removeFavorite.bind(this);
 
     this.state = {
       repo: {},
-      tags: {},
       searchRepo: ''
     };
   }
@@ -20,6 +20,7 @@ class Search extends Component {
     event.preventDefault();
     var base_url = "https://api.github.com/search/repositories";
     var url = base_url + "?q=" + this.state.searchRepo + "&sort=stars";
+    var self = this;
     axios.get(url)
       .then((response) => {
         response = response.data
@@ -42,10 +43,9 @@ class Search extends Component {
               tag: tag
             };
             repos = {...repos, ...newRepo};
+            self.setState({ repo: repos });
           });
         });
-        console.log(repos);
-        this.setState({ repo: repos });
       });
   }
 
@@ -53,6 +53,10 @@ class Search extends Component {
     this.setState({
       searchRepo: evt.target.value
     });
+  }
+
+  removeFavorite(favorite){
+    this.props.favorites.push(favorite);
   }
    
   render() {
@@ -67,11 +71,11 @@ class Search extends Component {
                 onChange={evt => this.updateInputValue(evt)}
                 placeholder="Search.."
               />
-              <button type="submit" form="form1" value="Search">Search</button>
+              <button type="submit" onClick={this.handleSubmit} value="Search">Search</button>
           </form>
         </div>
         <div className="container">
-          <Table repo={this.state.repo} tags={this.state.tags}></Table>
+          <Table repo={this.state.repo} favorites={this.props.favorites} favoritesAction={this.addFavorite} action="Add"></Table>
         </div>
       </div>
     );

@@ -4,6 +4,13 @@ import Favorite from './Favorite';
 import '../css/App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      favorites: {}
+    };
+  }
   render() {
     return (
       <div className="App">
@@ -11,10 +18,10 @@ class App extends Component {
           <h1 className="App-title">My Github Favorites</h1>
         </header>
         <div className="md-6">
-          <Search></Search>
+          <Search favorites={this.state.favorites}></Search>
         </div>
         <div className="md-6">
-          <Favorite></Favorite>
+          <Favorite favorites={this.state.favorites}></Favorite>
         </div>
       </div>
     );
