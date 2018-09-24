@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import Cookies from 'universal-cookie';
 import Table from './Table';
 import '../css/Search.css';
 
@@ -8,7 +9,7 @@ class Search extends Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.removeFavorite = this.removeFavorite.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
 
     this.state = {
       repo: {},
@@ -20,13 +21,14 @@ class Search extends Component {
     event.preventDefault();
     var base_url = "https://api.github.com/search/repositories";
     var url = base_url + "?q=" + this.state.searchRepo + "&sort=stars";
+    url = url + "&username=justin2997";
     var self = this;
     axios.get(url)
       .then((response) => {
         response = response.data
-        var repos = {};
+        var repos = [];
         response.items.slice(0, 10).forEach(function(repo) {
-          axios.get(repo.tags_url)
+          /*axios.get(repo.tags_url)
           .then((tagJson) => {
             tagJson = tagJson.data;
             var tag;
@@ -44,7 +46,15 @@ class Search extends Component {
             };
             repos = {...repos, ...newRepo};
             self.setState({ repo: repos });
-          });
+          });*/
+
+          var newRepo = {
+            full_name: repo.full_name.substring(0,8),
+            language: repo.language,
+            tag: repo.tags_url.substring(0,8)
+          };
+          repos.push(newRepo);
+          self.setState({ repo: repos });
         });
       });
   }
@@ -55,8 +65,15 @@ class Search extends Component {
     });
   }
 
-  removeFavorite(favorite){
-    this.props.favorites.push(favorite);
+  addFavorite(favorite){
+      const cookies = new Cookies();
+      var favorites = cookies.get('favorites');
+      if (favorite === undefined){
+        favorites = [];
+      }
+      favorites.push(favorite);
+      console.log(favorites);
+      cookies.set('favorites', favorites, { path: '/' });
   }
    
   render() {

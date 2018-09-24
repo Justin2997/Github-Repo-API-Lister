@@ -67,6 +67,6 @@ table {
 
   .actionLink
   {
-    text-decoration: overline;
+    text-decoration: underline;
     color: rgb(134, 0, 244);
   }

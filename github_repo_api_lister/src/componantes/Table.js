@@ -10,7 +10,9 @@ class Table extends Component {
 
 
   favoriteAction(repo){
-    this.props.favoritesAction(repo);
+    return function () {
+      this.props.favoritesAction(repo);
+   }
   }
 
   render() {
@@ -19,13 +21,12 @@ class Table extends Component {
     if (repos) {
       var length = repos.length;
       for (var i = 0; i < length; i++) {
-        console.log(repos[i]);
           reposList.push(
             <tr key={i}>
               <td data-label="Name">{repos[i].full_name}</td>
               <td data-label="Language">{repos[i].language}</td>
               <td data-label="Latest tag">{repos[i].tag || "-"}</td>
-              <td data-label="Period"><span className="actionLink" OnClick={this.favoriteAction(repos[i])}>{this.props.action}}</span></td>
+              <td data-label="Period"><span className="actionLink" onClick={ () => this.favoriteAction(repos[i])}>{this.props.action}</span></td>
             </tr>
         );
       }

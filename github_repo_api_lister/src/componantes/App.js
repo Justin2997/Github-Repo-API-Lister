@@ -6,10 +6,6 @@ import '../css/App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      favorites: {}
-    };
   }
   render() {
     return (
@@ -18,10 +14,10 @@ class App extends Component {
           <h1 className="App-title">My Github Favorites</h1>
         </header>
         <div className="md-6">
-          <Search favorites={this.state.favorites}></Search>
+          <Search></Search>
         </div>
         <div className="md-6">
-          <Favorite favorites={this.state.favorites}></Favorite>
+          <Favorite></Favorite>
         </div>
       </div>
     );
