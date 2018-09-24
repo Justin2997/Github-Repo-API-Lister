@@ -28,7 +28,7 @@ class Search extends Component {
         response = response.data
         var repos = [];
         response.items.slice(0, 10).forEach(function(repo) {
-          /*axios.get(repo.tags_url)
+          axios.get(repo.tags_url)
           .then((tagJson) => {
             tagJson = tagJson.data;
             var tag;
@@ -44,17 +44,9 @@ class Search extends Component {
               language: repo.language,
               tag: tag
             };
-            repos = {...repos, ...newRepo};
+            repos.push(newRepo);
             self.setState({ repo: repos });
-          });*/
-
-          var newRepo = {
-            full_name: repo.full_name.substring(0,8),
-            language: repo.language,
-            tag: repo.tags_url.substring(0,8)
-          };
-          repos.push(newRepo);
-          self.setState({ repo: repos });
+          });
         });
       });
   }
