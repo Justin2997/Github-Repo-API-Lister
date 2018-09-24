@@ -1,0 +1,23 @@
+#searchZone{
+    margin-bottom: 50px;
+}
+
+#searchingForm input{
+    height: 40px;
+    width: 60%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+    padding-left: 30px;
+}
+
+#searchingForm button{
+    background: rgb(134, 0, 244);
+    height: 45px;
+    width: 20%;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+}
